@@ -27,6 +27,9 @@ class Character:
     def get_name(self):
         return self.name
     
+    def get_all_attributes(self):
+        return self.name, self.health, self.damage, self.armor
+    
 class Goblin:
     
     def __init__(self, id):
@@ -56,6 +59,21 @@ class Goblin:
 # functions
 def hello():
     print("Hello World")
+    
+def save_character(character : Character):
+    """
+    Tar in karaktär, bryter ner dess attribut och sparar ner på fil.
+
+    Args:
+        character (Character): Det objekt som ska sparas ner på fil.
+    """
+    
+    name, health, damage, armor = character.get_all_attributes()
+    with open("character_file.txt", "w", encoding="utf8") as f:
+        save_string = f"{name}/{health}/{damage}/{armor}\n"
+        f.write(save_string)
+        print(f"{name} has been successfully saved.")
+    
 # main code
 
 

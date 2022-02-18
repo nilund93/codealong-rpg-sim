@@ -1,4 +1,4 @@
-from resources import Character, Goblin
+from resources import Character, Goblin, save_character
 import random
 
 def fight(fighter : Character, enemies : list):
@@ -46,6 +46,7 @@ def main():
     
     nick = Character("Nick", 15, 3, 1)
     emy = Character("Emy", 20, 6, 5)
+    
     players.append(nick)
     players.append(emy)
     
@@ -61,6 +62,7 @@ def main():
     elif len(players) == 0:
         print("The Goblins won!")
     
+    save_character(emy)
     
 if __name__=="__main__":
     main()
