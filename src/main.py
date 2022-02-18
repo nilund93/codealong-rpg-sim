@@ -1,4 +1,4 @@
-from resources import Character, Goblin, save_character
+from resources import Character, Goblin, save_character, load_characters
 import random
 
 def fight(fighter : Character, enemies : list):
@@ -62,7 +62,11 @@ def main():
     elif len(players) == 0:
         print("The Goblins won!")
     
-    save_character(emy)
+    # save_character(emy)
+    players = load_characters()
+    for player in players:
+        print(player)
+    
     
 if __name__=="__main__":
     main()
