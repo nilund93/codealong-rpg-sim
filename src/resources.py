@@ -1,4 +1,5 @@
 # imports
+from random import randint
 # global variables
 # classes
 class Character:
@@ -60,19 +61,23 @@ class Goblin:
 def hello():
     print("Hello World")
     
-def save_character(character : Character):
+def save_character(characters : list()):
     """
     Tar in karaktär, bryter ner dess attribut och sparar ner på fil.
 
     Args:
         character (Character): Det objekt som ska sparas ner på fil.
     """
-    
-    name, health, damage, armor = character.get_all_attributes()
-    with open("character_file.txt", "w", encoding="utf8") as f:
+    saved_characters = []
+    for character in characters:
+        name, health, damage, armor = character.get_all_attributes()
         save_string = f"{name}/{health}/{damage}/{armor}\n"
-        f.write(save_string)
-        print(f"{name} has been successfully saved.")
+        saved_characters.append(save_string)
+        
+    with open("character_file.txt", "w", encoding="utf8") as f:
+        for char in saved_characters:
+            f.write(char)
+        print(f"Characters has been successfully saved.")
 
 def load_characters():
     
@@ -87,6 +92,20 @@ def load_characters():
             characters.append(this_char)
     print("Characters has been loaded from file.")
     return characters
+
+def create_character():
+    # tänk på name, hp, damage, armor
+    print("Welcome to the character creation!")
+    print("What is your character called?")
+    name = input("Name: ")
+    health = randint(10, 25)
+    damage = randint(1, 6)
+    armor = randint(0, 5)
+    
+    return_char = Character(name, health, damage, armor)
+    print("You have created the following character.")
+    print(return_char)
+    return return_char
     
 # main code
 

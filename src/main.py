@@ -1,4 +1,4 @@
-from resources import Character, Goblin, save_character, load_characters
+from resources import Character, Goblin, save_character, load_characters, create_character
 import random
 
 def fight(fighter : Character, enemies : list):
@@ -42,30 +42,34 @@ def new_fight(players: list, enemies: list):
 
 def main():
     enemies = []
-    players = []
+    players = load_characters()
     
-    nick = Character("Nick", 15, 3, 1)
-    emy = Character("Emy", 20, 6, 5)
+    print("Would you like to create a new character? (y/n)")
+    new_char = input(": ")
+    if new_char.lower() == "y":
+        new = create_character()
+        players.append(new)
     
-    players.append(nick)
-    players.append(emy)
-    
-    enemies.append(Goblin(1))
-    enemies.append(Goblin(2))
-    
-    # fight(emy, enemies)
+    amount_of_goblins = int(input("How many goblins should they fight?: "))
+    for i in range(amount_of_goblins):
+        enemies.append(Goblin(i+1))
     
     while len(enemies) != 0 and len(players) != 0:
         new_fight(players, enemies)
     if len(enemies) == 0:
         print("The players won!")
+        print("Would you like to save the remaining characters? (y/n)")
+        while True:
+            save_progress = input(": ")
+            if save_progress.lower() == "y":
+                save_character(players)
+                break
+            elif save_progress.lower() == "n":
+                break
+            else:
+                print("That was not a valid option.")
     elif len(players) == 0:
         print("The Goblins won!")
-    
-    # save_character(emy)
-    players = load_characters()
-    for player in players:
-        print(player)
     
     
 if __name__=="__main__":
