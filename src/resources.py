@@ -1,7 +1,15 @@
 # imports
-from random import randint
+from random import randint, choice
 # global variables
 # classes
+class Weapon:
+    def __init__(self, name, damage):
+        self.name = name
+        self.damage = damage
+    
+    def return_damage(self):
+        return self.damage
+
 class Character:
     
     def __init__(self, name, health, damage, armor):
@@ -36,12 +44,20 @@ class Goblin:
     def __init__(self, id):
         self.id = id
         self.health = 10
-        self.damage = 3
         self.armor = 2
-    
+        self.give_weapon()
+        self.damage = self.weapon.return_damage()
+        
     def __str__(self):
         return f'ID: {self.id}\nHealth: {self.health}\nDamage: {self.damage}\nArmor: {self.armor}'
 
+    def give_weapon(self):
+        weapons = []
+        weapons.append(Weapon("Rusty Spear", 3))
+        weapons.append(Weapon("Rusty Cleaver", 2))
+        weapons.append(Weapon("Stone Axe", 1))
+        self.weapon = choice(weapons)
+    
     def take_damage(self, dmg):
         actual_damage = dmg - self.armor
         if actual_damage < 0: actual_damage = 0
@@ -57,6 +73,8 @@ class Goblin:
     def get_name(self):
         return f"Goblin #{self.id}"
 
+
+        
 # functions
 def hello():
     print("Hello World")
